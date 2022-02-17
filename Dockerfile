@@ -1,5 +1,7 @@
 FROM node:17-alpine3.15 AS development
 
+# see also: https://dev.to/erezhod/setting-up-a-nestjs-project-with-docker-for-back-end-development-30lgs
+
 # Update npm
 RUN npm install -g npm@latest
 RUN npm install -g rimraf
