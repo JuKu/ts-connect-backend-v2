@@ -42,9 +42,9 @@ jobs:
             unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
             export PATH=$SONAR_SCANNER_HOME/bin:$PATH
             export SONAR_SCANNER_OPTS="-server"
-      - run:
-          name: Install NestJS CLI
-          command: npm install -g @nestjs/cli
+      #- run:
+      #    name: Install NestJS CLI
+      #    command: npm install -g @nestjs/cli
       # Cache local dependencies if they don't exist
       - save_cache:
           key: v1-dependencies-{{ checksum "package-lock.json" }}

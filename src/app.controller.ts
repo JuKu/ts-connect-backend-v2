@@ -18,6 +18,7 @@ export class AppController {
    *
    * @return {string} response
    */
+  // eslint-disable-next-line require-jsdoc
   getHello(): string {
     return this.appService.getHello();
   }
