@@ -52,8 +52,8 @@ RUN chmod -R 777 /usr/src/app/logs
 
 VOLUME ["/usr/src/app/config"]
 VOLUME ["/usr/src/app/logs"]
-VOLUME["/config"]
-VOLUME["/logs"]
+#VOLUME["/config"]
+#VOLUME["/logs"]
 
 EXPOSE 3000
 
