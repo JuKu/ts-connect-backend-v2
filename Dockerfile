@@ -48,6 +48,7 @@ RUN mkdir /config
 RUN mkdir /logs
 RUN chmod -R 777 /logs
 
+RUN mkdir -p /usr/src/app/logs
 RUN chmod -R 777 /usr/src/app/logs
 
 VOLUME ["/usr/src/app/config"]
