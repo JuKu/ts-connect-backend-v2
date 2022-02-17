@@ -1,7 +1,7 @@
 {
   "name": "ts-connect-backend",
   "version": "0.0.1",
-  "description": "",
+  "description": "A second attempt to build the backend for the TenSing Connect App - with NestJS instead of plain express",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -39,8 +39,11 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
+    "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-security-node": "^1.1.1",
     "jest": "^27.2.5",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.20",
@@ -67,5 +70,18 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuKu/ts-connect-backend-v2.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/JuKu/ts-connect-backend-v2/issues"
+  },
+  "homepage": "https://github.com/JuKu/ts-connect-backend-v2#readme"
 }
