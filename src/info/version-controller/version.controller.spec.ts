@@ -1,16 +1,16 @@
 import {Test, TestingModule} from "@nestjs/testing";
-import {VersionControllerController} from "./version-controller.controller";
+import {VersionController} from "./version.controller";
 
 describe("VersionControllerController", () => {
-  let controller: VersionControllerController;
+  let controller: VersionController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [VersionControllerController],
+      controllers: [VersionController],
     }).compile();
 
     // eslint-disable-next-line max-len
-    controller = module.get<VersionControllerController>(VersionControllerController);
+    controller = module.get<VersionController>(VersionController);
   });
 
   it("should be defined", () => {

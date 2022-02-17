@@ -22,7 +22,9 @@ const PORT = process.env.PORT || 3000;
  * The bootstrap function which starts the web server.
  */
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ["log", "debug", "error", "verbose", "warn"],
+  });
 
   // setup swagger
   const config = new DocumentBuilder()
