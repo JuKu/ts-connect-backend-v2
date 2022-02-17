@@ -1,5 +1,4 @@
 import {Controller, Get} from "@nestjs/common";
-import {AppService} from "./app.service";
 
 @Controller()
 /**
@@ -9,7 +8,8 @@ export class AppController {
   /**
    * the constructor.
    */
-  constructor(private readonly appService: AppService) {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,require-jsdoc
+  constructor() {
   }
 
   @Get()
@@ -19,7 +19,7 @@ export class AppController {
    * @return {string} response
    */
   // eslint-disable-next-line require-jsdoc
-  getHello(): string {
-    return this.appService.getHello();
+  getIndex(): string {
+    return "This is the public API of the ts-connect-app.";
   }
 }
