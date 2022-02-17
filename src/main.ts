@@ -18,10 +18,18 @@ import {VersionService} from "./info/version-service/version.service";
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || 3000;
 
+const APP_TYPE = process.env.APP_TYPE || "web-api";
+
 /**
  * The bootstrap function which starts the web server.
  */
 async function bootstrap() {
+  // TODO: check for app type
+  if (APP_TYPE == "worker") {
+    console.log("start worker now...");
+    return;
+  }
+
   const app = await NestFactory.create(AppModule, {
     logger: ["log", "debug", "error", "verbose", "warn"],
   });
