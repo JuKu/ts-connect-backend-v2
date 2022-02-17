@@ -7,4 +7,9 @@ import {AppService} from "./app.service";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+
+/**
+ * the top-level app module.
+ */
+export class AppModule {
+}
