@@ -14,7 +14,7 @@ export class AppController {
 
   @Get()
   /**
-   * hello greeter controller.
+   * index controller.
    *
    * @return {string} response
    */

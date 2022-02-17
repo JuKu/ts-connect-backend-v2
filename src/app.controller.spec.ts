@@ -14,8 +14,10 @@ describe("AppController", () => {
   });
 
   describe("root", () => {
-    it("should return \"Hello World!\"", () => {
-      expect(appController.getHello()).toBe("Hello World!");
+    // eslint-disable-next-line max-len
+    it("should return \"This is the public API of the ts-connect-app.\"", () => {
+      // eslint-disable-next-line max-len
+      expect(appController.getIndex()).toBe("This is the public API of the ts-connect-app.");
     });
   });
 });
