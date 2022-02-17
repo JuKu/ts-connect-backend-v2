@@ -1,5 +1,7 @@
 "use strict";
 
+import {SwaggerModule, DocumentBuilder} from "@nestjs/swagger";
+
 /**
  * this is the main file for the web-api application.
  *
@@ -9,6 +11,7 @@
  */
 import {NestFactory} from "@nestjs/core";
 import {AppModule} from "./app.module";
+import {VersionService} from "./info/version-service/version.service";
 
 // get the server host and port
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,6 +23,17 @@ const PORT = process.env.PORT || 3000;
  */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // setup swagger
+  const config = new DocumentBuilder()
+      .setTitle("TS Connect API")
+      .setDescription("The API for the TS Connect App")
+      .setVersion(await new VersionService().getCurrentBackendVersion())
+      .addTag("ts-connect")
+      .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("swagger", app, document);
+
   await app.listen(PORT);
 }
 
