@@ -1,5 +1,8 @@
 # ts-connect-backend-v2
 
+[![CircleCI](https://circleci.com/gh/JuKu/ts-connect-backend-v2/tree/master.svg?style=svg)](https://circleci.com/gh/JuKu/ts-connect-backend-v2/tree/master)
+[![Known Vulnerabilities](https://snyk.io/test/github/JuKu/ts-connect-backend-v2/badge.svg)](https://snyk.io/test/github/JuKu/ts-connect-backend-v2)
+
 A second attempt to build the backend for the TenSing Connect App - with NestJS instead of plain express
 
 Old version: https://github.com/JuKu/ts-connect-backend
