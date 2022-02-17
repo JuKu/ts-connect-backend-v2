@@ -115,7 +115,8 @@ orbs:
 workflows:
   build-and-deploy:
     jobs:
-      - build-and-test
+      - build-and-test:
+          context: SonarCloud
       - deploy:
           requires:
             - build-and-test
