@@ -24,7 +24,9 @@
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
+    "@nestjs/microservices": "^8.3.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^5.2.0",
     "class-validator": "^0.13.2",
     "hbs": "^4.2.0",
     "helmet": "^5.0.2",
@@ -32,7 +34,9 @@
     "nest-jsonapi": "^0.6.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.3.0",
+    "version": "^0.1.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.2.1",
