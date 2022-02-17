@@ -44,6 +44,10 @@ COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
 
+RUN mkdir /config
+RUN mkdir /logs
+RUN chmod -R 777 /logs
+
 RUN chmod -R 777 /usr/src/app/logs
 
 VOLUME ["/usr/src/app/config"]
