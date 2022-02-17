@@ -21,4 +21,13 @@ describe("AppController (e2e)", () => {
         .expect(200)
         .expect("This is the public API of the ts-connect-app.");
   });
+
+  it("/api/version (GET)", () => {
+    return request(app.getHttpServer())
+        .get("/api/version")
+        .expect(200)
+        .expect({
+          "version": "0.0.1",
+        });
+  });
 });

@@ -2,7 +2,6 @@ import {Module} from "@nestjs/common";
 import {AppController} from "./app.controller";
 import {UserModule} from "./user/user.module";
 import {InfoModule} from "./info/info.module";
-import {VersionController} from "./info/version-controller/version.controller";
 import {ConfigModule} from "@nestjs/config";
 import configuration from "../config/configuration";
 

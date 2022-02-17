@@ -1,6 +1,7 @@
 "use strict";
 
 import {SwaggerModule, DocumentBuilder} from "@nestjs/swagger";
+import * as compression from 'compression';
 
 /**
  * this is the main file for the web-api application.
@@ -12,6 +13,9 @@ import {SwaggerModule, DocumentBuilder} from "@nestjs/swagger";
 import {NestFactory} from "@nestjs/core";
 import {AppModule} from "./app.module";
 import {VersionService} from "./info/version-service/version.service";
+import {NestExpressApplication} from "@nestjs/platform-express";
+import {join} from "path";
+import helmet from "helmet";
 
 // get the server host and port
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -30,9 +34,15 @@ async function bootstrap() {
     return;
   }
 
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: ["log", "debug", "error", "verbose", "warn"],
   });
+
+  app.use(compression());
+  app.use(helmet());
+  app.useStaticAssets(join(__dirname, "..", "public"));
+  app.setBaseViewsDir(join(__dirname, "..", "views"));
+  app.setViewEngine("hbs");
 
   // setup swagger
   const config = new DocumentBuilder()
