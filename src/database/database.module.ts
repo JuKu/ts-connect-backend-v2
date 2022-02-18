@@ -3,11 +3,9 @@ import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {DatabaseService} from "./database/database.service";
 import {MongoDbTestService} from "./mongo-dbtest/mongo-db-test.service";
-import {RedisModule} from "nestjs-redis";
 import {BullModule, BullModuleOptions} from "@nestjs/bull";
-import {RedisOptions} from "@nestjs/microservices";
-import {RedisModuleOptions} from "nestjs-redis/dist/redis.interface";
 import Bull from "bull";
+import {RedisModule, RedisModuleOptions} from "@liaoliaots/nestjs-redis";
 
 @Module({
   imports: [
@@ -51,14 +49,18 @@ import Bull from "bull";
         const database: number = Number.parseInt(
             configService.get<string>("redis.db"));
 
-        const redisOptions: RedisModuleOptions = {
-          name: "root-redis",
-          host: host,
-          port: port,
-          password: password,
-          db: database,
+        const redisOptions1 : RedisModuleOptions = {
+          closeClient: true,
+          config: {
+            name: "root-redis",
+            host: host,
+            port: port,
+            password: password,
+            db: database,
+            keyPrefix: "ts_",
+          },
         };
-        return redisOptions;
+        return redisOptions1;
       },
       inject: [ConfigService],
     }),
