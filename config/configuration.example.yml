@@ -1,0 +1,31 @@
+http:
+  host: 'localhost'
+  port: 8080
+
+db:
+  mongodb:
+    host: localhost
+    port: 27017
+    database: myDB
+    username: myUser
+    password: myPass
+    retryWrites: true
+    w: majority
+
+auth:
+  jwt:
+    secret: mySecret
+    expiresIn: 30d
+
+ratelimiter:
+  ttl: 60
+  limit: 10
+
+cache:
+  redis:
+    host: localhost
+    port: 6379
+    password: myPass
+    db: 0
+  # TTL in seconds
+  ttl: 60

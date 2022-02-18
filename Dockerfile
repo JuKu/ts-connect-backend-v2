@@ -59,4 +59,4 @@ VOLUME ["/usr/src/app/logs"]
 EXPOSE 3000
 
 #CMD [ "npm", "run", "start-prod" ]
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]

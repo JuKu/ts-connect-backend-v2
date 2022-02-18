@@ -1,4 +1,11 @@
-import { Module } from '@nestjs/common';
+import {Module} from "@nestjs/common";
+import {VersionService} from "./version-service/version.service";
+import {VersionController}
+  from "./version-controller/version.controller";
 
-@Module({})
-export class InfoModule {}
+@Module({
+  controllers: [VersionController],
+  providers: [VersionService],
+})
+export class InfoModule {
+}
