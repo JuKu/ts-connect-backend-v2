@@ -1,7 +1,7 @@
 "use strict";
 
 import {SwaggerModule, DocumentBuilder} from "@nestjs/swagger";
-import * as compression from 'compression';
+import * as compression from "compression";
 
 /**
  * this is the main file for the web-api application.

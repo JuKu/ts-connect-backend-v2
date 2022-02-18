@@ -10,3 +10,8 @@ db:
 
   sqlite:
     database: 'sqlite.db'
+
+auth:
+  jwt:
+    secret: mySecret
+    expiresIn: 30d
