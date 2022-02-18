@@ -2,17 +2,24 @@ import {Test, TestingModule} from "@nestjs/testing";
 import {INestApplication} from "@nestjs/common";
 import * as request from "supertest";
 import {AppModule} from "./../src/app.module";
+import {closeInMongodConnection, rootMongooseTestModule} from "./test-utils/MongooseTestModule";
 
 describe("AppController (e2e)", () => {
   let app: INestApplication;
 
   beforeEach(async () => {
+    // const mongod = new MongoMemoryServer();
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [rootMongooseTestModule(),
+        AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  afterAll(async () => {
+    await closeInMongodConnection();
   });
 
   it("/ (GET)", () => {

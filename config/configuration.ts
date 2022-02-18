@@ -23,7 +23,7 @@ export default () => {
     YAML_CONFIG_FILENAME = "configuration.example.yml";
   }
 
-  console.error("load configuration file: " + YAML_CONFIG_FILENAME);
+  console.info("load configuration file: " + YAML_CONFIG_FILENAME);
 
   return yaml.load(
       readFileSync(join(__dirname, YAML_CONFIG_FILENAME), "utf8"),
