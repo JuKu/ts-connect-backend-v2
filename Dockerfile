@@ -43,6 +43,7 @@ RUN npm install --only=production
 COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
+COPY ./config ./dist/config
 
 RUN mkdir /config
 RUN mkdir /logs
