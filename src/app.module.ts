@@ -10,6 +10,7 @@ import {ChatModule} from "./chat/chat.module";
 import {MessagesModule} from "./messages/messages.module";
 import {AuthModule} from "./auth/auth.module";
 import configuration from "../config/configuration";
+// eslint-disable-next-line max-len
 import {ThrottlerGuard, ThrottlerModule, ThrottlerModuleOptions} from "@nestjs/throttler";
 import {EventEmitterModule} from "@nestjs/event-emitter";
 import * as redisStore from "cache-manager-redis-store";
