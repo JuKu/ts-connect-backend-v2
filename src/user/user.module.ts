@@ -7,8 +7,8 @@ import {AuthService} from "../auth/auth.service";
   providers: [AuthService],
 })
 /**
-* this module is responsible for all endpoints which starts with /user/** .
+ * this module is responsible for all endpoints which starts with /user/** .
  *
  * @author Justin Kuenzel
-*/
+ */
 export class UserModule {}

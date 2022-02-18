@@ -1,6 +1,5 @@
 import {Test, TestingModule} from "@nestjs/testing";
 import {DatabaseService} from "./database.service";
-import {closeInMongodConnection, rootMongooseTestModule} from "../../../test/test-utils/MongooseTestModule";
 import {ConfigService} from "@nestjs/config";
 import {DatabaseModule} from "../database.module";
 
@@ -9,7 +8,7 @@ describe("DatabaseService", () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigService, DatabaseModule/* , rootMongooseTestModule()*/],
+      imports: [ConfigService, DatabaseModule],
       providers: [DatabaseService],
     }).compile();
 
@@ -17,7 +16,7 @@ describe("DatabaseService", () => {
   });
 
   afterAll(async () => {
-    await closeInMongodConnection();
+    // add code here
   });
 
   it("should be defined", () => {

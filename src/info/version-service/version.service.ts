@@ -9,9 +9,10 @@ import {getVersion} from "get-own-version";
  */
 export class VersionService {
   /**
-   * Get the current backend version as format Major.Minor.Patch .
+   * Get the current backend version as format Major_Minor_Patch.
    *
-   * @return {string} backend version
+   * @async
+   * @return {Promise<string>} backend version
    */
   public async getCurrentBackendVersion() {
     return getVersion();

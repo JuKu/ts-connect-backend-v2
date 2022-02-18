@@ -8,9 +8,17 @@ declare global {
 }
 
 @Injectable()
+/**
+ * This service is responsible for providing a mongodb in-memory database.
+ *
+ * @author Justin Kuenzel
+ */
 export class MongoDbTestService {
   /**
    * This method is used in e2e tests to setup a mongodb database.
+   *
+   * @async
+   * @return {Promise<string>} mongodb uri
    */
   async createInMemoryInstance(): Promise<string> {
     if (global.mongod !== undefined) {
@@ -29,23 +37,24 @@ export class MongoDbTestService {
     console.info("created mongodb in-memory database: " + mongoUri);
 
     // check connection
-    const mongooseOpts = {
-      useNewUrlParser: true,
-      autoReconnect: true,
-      reconnectTries: Number.MAX_VALUE,
-      reconnectInterval: 1000,
-    };
-
-    await mongoose.connect(mongoUri/* , mongooseOpts*/);
+    await mongoose.connect(mongoUri);
     console.info("check mongodb connection: mongoose connected.");
 
     return mongoUri;
   }
 
+  /**
+   * Stop the mongodb in-memory database.
+   */
   async stopServer(): Promise<void> {
     await global.mongod.stop();
   }
 
+  /**
+   * Get the current MongoDB in-memory instance.
+   *
+   * @return {Promise<MongoMemoryServer>} mongo in-memory server
+   */
   async getInstance(): Promise<MongoMemoryServer> {
     return global.mongod;
   }

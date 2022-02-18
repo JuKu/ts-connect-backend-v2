@@ -7,7 +7,6 @@ import * as compression from "compression";
  * this is the main file for the web-api application.
  *
  * @author Justin Kuenzel
- *
  * @copyright 2022, Justin Kuenzel, JuKuSoft
  */
 import {NestFactory} from "@nestjs/core";

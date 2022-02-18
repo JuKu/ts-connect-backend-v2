@@ -13,9 +13,7 @@ export class DatabaseService {
   /**
    * The constructor.
    *
-   * @constructor
-   *
-   * @param {Connection} mongodb database connection
+   * @param {Connection} connection database connection
    */
   constructor(@InjectConnection() private readonly connection: Connection) {}
 

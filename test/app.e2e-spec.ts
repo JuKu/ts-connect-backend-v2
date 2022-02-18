@@ -2,8 +2,6 @@ import {Test, TestingModule} from "@nestjs/testing";
 import {INestApplication} from "@nestjs/common";
 import * as request from "supertest";
 import {AppModule} from "./../src/app.module";
-// eslint-disable-next-line max-len
-import {closeInMongodConnection, rootMongooseTestModule} from "./test-utils/MongooseTestModule";
 import {Connection} from "mongoose";
 import {DatabaseService} from "../src/database/database/database.service";
 import {MongoMemoryServer} from "mongodb-memory-server";
@@ -19,7 +17,7 @@ describe("AppController (e2e)", () => {
   beforeAll(async () => {
     // const mongod = new MongoMemoryServer();
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [/* rootMongooseTestModule(),*/
+      imports: [
         AppModule],
     }).compile();
 
