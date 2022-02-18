@@ -48,6 +48,7 @@ export class MongoDbTestService {
    */
   async stopServer(): Promise<void> {
     await global.mongod.stop();
+    global.mongod = undefined;
   }
 
   /**
