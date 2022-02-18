@@ -1,4 +1,5 @@
-import {CacheModule, CacheModuleOptions, Module} from "@nestjs/common";
+// eslint-disable-next-line max-len
+import {CacheModule, CacheModuleOptions, Inject, Module, OnApplicationShutdown} from "@nestjs/common";
 import {AppController} from "./app.controller";
 import {UserModule} from "./user/user.module";
 import {InfoModule} from "./info/info.module";
@@ -17,6 +18,7 @@ import * as redisStore from "cache-manager-redis-store";
 import {APP_GUARD} from "@nestjs/core";
 import {ScheduleModule} from "@nestjs/schedule";
 import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
+import {RedisClient} from "redis";
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -117,5 +119,21 @@ import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
 /**
  * the top-level app module.
  */
-export class AppModule {
+export class AppModule implements OnApplicationShutdown {
+  constructor(
+      // ...
+      // @Inject() private readonly redisConnection: RedisClient,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+  ) {}
+
+  /* async closeRedisConnection(): Promise<void> {
+    this.redisConnection.quit();
+    // this.logger.log('Redis connection is closed');
+  }*/
+
+  async onApplicationShutdown(signal?: string) {
+    /* await Promise.all([
+      this.closeRedisConnection(),
+    ]).catch((error) => console.error(error.message));*/
+  }
 }
