@@ -24,6 +24,8 @@ import {MongoDbTestService} from "./mongo-dbtest/mongo-db-test.service";
           const mongoDbTestService = new MongoDbTestService();
           mongoDBUri = await mongoDbTestService.createInMemoryInstance();
           console.info("use mongodb test instance: " + mongoDBUri);
+        } else {
+          console.info("use normal mongodb instance: " + mongoDBUri);
         }
 
         const options: MongooseModuleOptions = {

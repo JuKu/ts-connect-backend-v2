@@ -26,8 +26,8 @@ describe("AppController (e2e)", () => {
     app = moduleFixture.createNestApplication();
     await app.init();
 
-    mongod = moduleFixture.get<MongoDbTestService>(MongoDbTestService)
-      .getInstance();
+    mongod = await moduleFixture.get<MongoDbTestService>(MongoDbTestService)
+        .getInstance();
 
     // get MongoDB connection
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

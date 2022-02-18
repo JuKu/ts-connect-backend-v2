@@ -1,31 +1,52 @@
 import {Injectable} from "@nestjs/common";
 import {MongoMemoryServer} from "mongodb-memory-server";
+import * as mongoose from "mongoose";
+
+declare global {
+  // eslint-disable-next-line no-var
+  var monged: MongoMemoryServer;
+}
 
 @Injectable()
 export class MongoDbTestService {
-  mongod: MongoMemoryServer;
-
   /**
    * This method is used in e2e tests to setup a mongodb database.
    */
   async createInMemoryInstance(): Promise<string> {
-    if (this.mongod !== undefined) {
+    if (global.mongod !== undefined) {
       console.warn("mongodb in-memory database is already running");
-      return this.mongod.getUri();
+      return global.mongod.getUri();
     }
 
-    this.mongod = await MongoMemoryServer.create();
-    const mongoUri = this.mongod.getUri();
+    global.mongod = await MongoMemoryServer.create({
+      instance: {
+        auth: false,
+        dbName: "test",
+        ip: "::,0.0.0.0",
+      },
+    });
+    const mongoUri = global.mongod.getUri() + "test";
     console.info("created mongodb in-memory database: " + mongoUri);
+
+    // check connection
+    const mongooseOpts = {
+      useNewUrlParser: true,
+      autoReconnect: true,
+      reconnectTries: Number.MAX_VALUE,
+      reconnectInterval: 1000,
+    };
+
+    await mongoose.connect(mongoUri/* , mongooseOpts*/);
+    console.info("check mongodb connection: mongoose connected.");
 
     return mongoUri;
   }
 
   async stopServer(): Promise<void> {
-    await this.mongod.stop();
+    await global.mongod.stop();
   }
 
-  getInstance(): MongoMemoryServer {
-    return this.mongod;
+  async getInstance(): Promise<MongoMemoryServer> {
+    return global.mongod;
   }
 }
