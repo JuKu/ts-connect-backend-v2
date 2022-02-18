@@ -107,6 +107,11 @@ import {DatabaseModule} from "./database/database.module";
  * the top-level app module.
  */
 export class AppModule implements OnApplicationShutdown {
+  /**
+   * The constructor.
+   *
+   * @return {void}
+   */
   constructor(
       // ...
       // @Inject() private readonly redisConnection: RedisClient,
@@ -118,10 +123,15 @@ export class AppModule implements OnApplicationShutdown {
     // this.logger.log('Redis connection is closed');
   }*/
 
+  /**
+   * This method is executed if the server shutdowns.
+   *
+   * @param {string?} signal the shutdown signal
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,require-jsdoc
   async onApplicationShutdown(signal?: string) {
     /* await Promise.all([
       this.closeRedisConnection(),
     ]).catch((error) => console.error(error.message));*/
-    // process.exit(0);
   }
 }

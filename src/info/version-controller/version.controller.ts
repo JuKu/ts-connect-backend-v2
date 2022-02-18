@@ -1,6 +1,5 @@
 import {Controller, Get} from "@nestjs/common";
 import {VersionService} from "../version-service/version.service";
-import {Version} from "../version.interface";
 
 @Controller("/api/version")
 /**
@@ -23,9 +22,12 @@ export class VersionController {
   /**
    * Get the current version in the format {version: <major.minor.path>}.
    *
-   * @return {Promise<Version>} backend version
+   * @public
+   * @async
+   * @return {Promise<any>} backend version
    */
-  public async getVersion(): Promise<Version> {
+  // eslint-disable-next-line require-jsdoc
+  public async getVersion(): Promise<any> {
     return {
       version: await this.versionService.getCurrentBackendVersion(),
     };
