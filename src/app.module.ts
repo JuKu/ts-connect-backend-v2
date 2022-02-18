@@ -30,28 +30,6 @@ import {DatabaseModule} from "./database/database.module";
     isGlobal: true,
   }), DatabaseModule, UserModule, InfoModule, AdminModule,
   ProfileModule, StatisticsModule, ChatModule, MessagesModule, AuthModule,
-  MongooseModule.forRootAsync({
-    imports: [ConfigModule],
-    useFactory: async (configService: ConfigService) => {
-      const dbHost: string = configService.get("db.mongodb.host");
-      // eslint-disable-next-line max-len
-      const dbPort: number = Number.parseInt(configService.get("db.mongodb.port"));
-      const dbDatabase: string = configService.get("db.mongodb.database");
-      const username: string = configService.get("db.mongodb.username");
-      const password: string = configService.get("db.mongodb.password");
-      const retryWrites: string = configService.get("db.mongodb.retryWrites");
-      const w: string = configService.get("db.mongodb.w");
-
-      const mongoDBUri: string = "mongodb+srv://" + username + ":" + password + "@" + dbHost + "/" + dbDatabase + "?retryWrites=" + retryWrites + "&w=" + w + "";
-
-      const options: MongooseModuleOptions = {
-        uri: mongoDBUri,
-        connectionName: "root",
-      };
-      return options;
-    },
-    inject: [ConfigService],
-  }),
   ThrottlerModule.forRootAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => {
