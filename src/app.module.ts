@@ -62,6 +62,16 @@ import {DatabaseModule} from "./database/database.module";
   CacheModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => {
+      if (configService.get<string>("NODE_ENV") === "test") {
+        // use in-memory store
+        console.info("use in-memory cache");
+
+        const options: CacheModuleOptions = {
+          isGlobal: true,
+        };
+        return options;
+      }
+
       const options: CacheModuleOptions = {
         isGlobal: true,
         store: redisStore,
