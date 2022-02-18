@@ -3,3 +3,5 @@ npm-debug.log
 config/*
 !config/*.example.cfg
 !config/*.example.js
+!config/configuration.ts
+!config/configuration.example.yml

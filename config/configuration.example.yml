@@ -12,6 +12,24 @@ db:
     retryWrites: true
     w: majority
 
+redis:
+  host: localhost
+  port: 6379
+  password: examplepass
+  db: 4
+
+queue:
+  redis:
+    host: localhost
+    port: 6379
+    password: examplepass
+    db: 1
+  limiter:
+    # how much jobs should be executed maximum in a certain amount of time (duration)?
+    max: 100
+    # duration in ms
+    duration: 1000
+
 auth:
   jwt:
     secret: mySecret

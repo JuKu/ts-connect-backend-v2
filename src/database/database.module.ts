@@ -3,6 +3,11 @@ import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {DatabaseService} from "./database/database.service";
 import {MongoDbTestService} from "./mongo-dbtest/mongo-db-test.service";
+import {RedisModule} from "nestjs-redis";
+import {BullModule, BullModuleOptions} from "@nestjs/bull";
+import {RedisOptions} from "@nestjs/microservices";
+import {RedisModuleOptions} from "nestjs-redis/dist/redis.interface";
+import Bull from "bull";
 
 @Module({
   imports: [
@@ -33,6 +38,61 @@ import {MongoDbTestService} from "./mongo-dbtest/mongo-db-test.service";
           connectionName: "root",
         };
         return options;
+      },
+      inject: [ConfigService],
+    }),
+    RedisModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => {
+        const host: string = configService.get<string>("redis.host");
+        const port: number = Number.parseInt(
+            configService.get<string>("redis.port"));
+        const password: string = configService.get<string>("redis.password");
+        const database: number = Number.parseInt(
+            configService.get<string>("redis.db"));
+
+        const redisOptions: RedisModuleOptions = {
+          name: "root-redis",
+          host: host,
+          port: port,
+          password: password,
+          db: database,
+        };
+        return redisOptions;
+      },
+      inject: [ConfigService],
+    }),
+    // for queuing
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => {
+        const host: string = configService.get<string>("queue.redis.host");
+        const port: number = Number.parseInt(
+            configService.get<string>("queue.redis.port"));
+        const password: string = configService
+            .get<string>("queue.redis.password");
+        const database: number = Number.parseInt(
+            configService.get<string>("queue.redis.db"));
+
+        const bullOptions: Bull.QueueOptions = {
+          redis: {
+            name: "root-redis",
+            host: host,
+            port: port,
+            password: password,
+            db: database,
+            enableOfflineQueue: true,
+            lazyConnect: false,
+          },
+          limiter: {
+            max: Number.parseInt(
+                configService.get<string>("queue.limiter.max")),
+            duration: Number.parseInt(
+                configService.get<string>("queue.limiter.duration"),
+            ),
+          },
+        };
+        return bullOptions;
       },
       inject: [ConfigService],
     }),
