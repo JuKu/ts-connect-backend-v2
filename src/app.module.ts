@@ -64,13 +64,13 @@ import {DatabaseModule} from "./database/database.module";
         // use in-memory store
         console.info("use in-memory cache");
 
-        const options1: CacheModuleOptions = {
+        const testOptions: CacheModuleOptions = {
           isGlobal: true,
         };
-        return options1;
+        return testOptions;
       }
 
-      const options1: CacheModuleOptions = {
+      const prodOptions: CacheModuleOptions = {
         isGlobal: true,
         store: redisStore,
 
@@ -88,7 +88,7 @@ import {DatabaseModule} from "./database/database.module";
 
         ttl: configService.get("cache.ttl"),
       };
-      return options1;
+      return prodOptions;
     },
     inject: [ConfigService],
   }),

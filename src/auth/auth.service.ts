@@ -12,6 +12,7 @@ export class AuthService {
    *
    * @param {any} user user
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,require-jsdoc
   async login(user: any) {
     /* const payload = { username: user.username, sub: user.userId };
     return {

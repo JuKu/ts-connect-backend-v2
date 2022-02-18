@@ -34,4 +34,9 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
   providers: [AuthService/* , LocalStrategy*/],
   exports: [AuthService],
 })
+/**
+ * This module is responsible for the authentication of the user.
+ *
+ * @author Justin Kuenzel
+ */
 export class AuthModule {}
