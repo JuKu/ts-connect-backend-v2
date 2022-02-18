@@ -15,3 +15,16 @@ auth:
   jwt:
     secret: mySecret
     expiresIn: 30d
+
+ratelimiter:
+  ttl: 60
+  limit: 10
+
+cache:
+  redis:
+    host: localhost
+    port: 6379
+    password: myPass
+    db: 0
+  # TTL in seconds
+  ttl: 60
