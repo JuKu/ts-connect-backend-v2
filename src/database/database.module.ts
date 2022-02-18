@@ -3,7 +3,7 @@ import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {DatabaseService} from "./database/database.service";
 import {MongoDbTestService} from "./mongo-dbtest/mongo-db-test.service";
-import {BullModule, BullModuleOptions} from "@nestjs/bull";
+import {BullModule} from "@nestjs/bull";
 import Bull from "bull";
 import {RedisModule, RedisModuleOptions} from "@liaoliaots/nestjs-redis";
 
