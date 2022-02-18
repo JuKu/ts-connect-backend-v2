@@ -18,4 +18,12 @@ describe("VersionController", () => {
   it("should be defined", () => {
     expect(controller).toBeDefined();
   });
+
+  it("should return a major.minor.patch version", async () => {
+    const version = await controller.getVersion();
+    expect(version).toBeDefined();
+
+    const versionArray = version.version.split(".");
+    expect(versionArray.length).toBe(3);
+  });
 });
