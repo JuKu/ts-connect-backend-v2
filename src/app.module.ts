@@ -85,7 +85,6 @@ import {DatabaseModule} from "./database/database.module";
     inject: [ConfigService],
   }),
   ScheduleModule.forRoot(),
-  DatabaseModule,
   ],
   controllers: [AppController],
   providers: [
