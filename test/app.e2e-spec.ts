@@ -8,6 +8,10 @@ import {closeInMongodConnection, rootMongooseTestModule} from "./test-utils/Mong
 describe("AppController (e2e)", () => {
   let app: INestApplication;
 
+  beforeAll(async () => {
+    // add code here
+  });
+
   beforeEach(async () => {
     // const mongod = new MongoMemoryServer();
     const moduleFixture: TestingModule = await Test.createTestingModule({
