@@ -3,13 +3,14 @@ http:
   port: 8080
 
 db:
-  postgres:
-    url: 'localhost'
-    port: 5432
-    database: 'yaml-db'
-
-  sqlite:
-    database: 'sqlite.db'
+  mongodb:
+    host: localhost
+    port: 27017
+    database: myDB
+    username: myUser
+    password: myPass
+    retryWrites: true
+    w: majority
 
 auth:
   jwt:

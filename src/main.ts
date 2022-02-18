@@ -16,6 +16,7 @@ import {VersionService} from "./info/version-service/version.service";
 import {NestExpressApplication} from "@nestjs/platform-express";
 import {join} from "path";
 import helmet from "helmet";
+import {ValidationPipe} from "@nestjs/common";
 
 // get the server host and port
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,6 +44,9 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, "..", "public"));
   app.setBaseViewsDir(join(__dirname, "..", "views"));
   app.setViewEngine("hbs");
+
+  // add auto-validation, see also: https://docs.nestjs.com/techniques/validation
+  app.useGlobalPipes(new ValidationPipe());
 
   // setup swagger
   const config = new DocumentBuilder()
