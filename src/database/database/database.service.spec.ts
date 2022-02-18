@@ -22,4 +22,8 @@ describe("DatabaseService", () => {
   it("should be defined", () => {
     expect(service).toBeDefined();
   });
+
+  it("getDbHandle() should be defined", () => {
+    expect(service.getDbHandle()).toBeDefined();
+  });
 });

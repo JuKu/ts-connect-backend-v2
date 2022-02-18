@@ -25,6 +25,8 @@ describe("MongoDbTestService", () => {
 
     expect(dbInstance).toBe(dbInstance1);
 
+    expect((await service.getInstance()).getUri() + "test").toBe(dbInstance);
+
     await service.stopServer();
   });
 });
