@@ -40,6 +40,10 @@ COPY package*.json ./
 
 RUN npm install --only=production
 
+# Fix for mongodb-memory-server, because MongoDbTestService uses this module
+RUN npm install --save mongodb-memory-server
+RUN npm install --save mongodb-memory-server-global
+
 COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
