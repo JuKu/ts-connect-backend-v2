@@ -21,7 +21,8 @@ import {RedisModule, RedisModuleOptions} from "@liaoliaots/nestjs-redis";
         const retryWrites: string = configService.get("db.mongodb.retryWrites");
         const w: string = configService.get("db.mongodb.w");
 
-        let mongoDBUri: string = "mongodb+srv://" + username + ":" + password + "@" + dbHost + ":" + dbPort + "/" + dbDatabase + "?retryWrites=" + retryWrites + "&w=" + w + "";
+        // mongodb-srv cannot have a port number
+        let mongoDBUri: string = "mongodb+srv://" + username + ":" + password + "@" + dbHost + "/" + dbDatabase + "?retryWrites=" + retryWrites + "&w=" + w + "";
 
         if (configService.get<string>("NODE_ENV") === "test") {
           const mongoDbTestService = new MongoDbTestService();

@@ -5,6 +5,7 @@ http:
 db:
   mongodb:
     host: localhost
+    # port number is currently not supported, because mongodb+srv cannot have a port number
     port: 27017
     database: myDB
     username: myUser
