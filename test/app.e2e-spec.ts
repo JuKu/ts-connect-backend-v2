@@ -23,8 +23,12 @@ describe("AppController (e2e)", () => {
     await app.init();
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await closeInMongodConnection();
+  });
+
+  afterAll(async () => {
+    // await closeInMongodConnection();
     await app.close();
   });
 

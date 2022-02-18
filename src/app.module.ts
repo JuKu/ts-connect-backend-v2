@@ -19,6 +19,7 @@ import {APP_GUARD} from "@nestjs/core";
 import {ScheduleModule} from "@nestjs/schedule";
 import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
 import {RedisClient} from "redis";
+import {DatabaseModule} from "./database/database.module";
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -27,7 +28,7 @@ import {RedisClient} from "redis";
     // see also: https://docs.nestjs.com/techniques/configuration
     load: [configuration],
     isGlobal: true,
-  }), UserModule, InfoModule, AdminModule,
+  }), DatabaseModule, UserModule, InfoModule, AdminModule,
   ProfileModule, StatisticsModule, ChatModule, MessagesModule, AuthModule,
   MongooseModule.forRootAsync({
     imports: [ConfigModule],
@@ -106,6 +107,7 @@ import {RedisClient} from "redis";
     inject: [ConfigService],
   }),
   ScheduleModule.forRoot(),
+  DatabaseModule,
   ],
   controllers: [AppController],
   providers: [
