@@ -23,7 +23,7 @@ export class MongoDbTestService {
   async createInMemoryInstance(): Promise<string> {
     if (global.mongod !== undefined) {
       console.warn("mongodb in-memory database is already running");
-      return global.mongod.getUri();
+      return global.mongod.getUri() + "test";
     }
 
     global.mongod = await MongoMemoryServer.create({
