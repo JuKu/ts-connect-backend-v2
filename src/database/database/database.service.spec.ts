@@ -3,6 +3,9 @@ import {DatabaseService} from "./database.service";
 import {ConfigService} from "@nestjs/config";
 import {DatabaseModule} from "../database.module";
 
+// jest.setup.js
+jest.setTimeout(10000);
+
 describe("DatabaseService", () => {
   let service: DatabaseService;
 
