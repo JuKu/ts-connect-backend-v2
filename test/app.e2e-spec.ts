@@ -21,6 +21,7 @@ describe("AppController (e2e)", () => {
 
   afterAll(async () => {
     await closeInMongodConnection();
+    await app.close();
   });
 
   it("/ (GET)", () => {

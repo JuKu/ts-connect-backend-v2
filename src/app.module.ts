@@ -135,5 +135,6 @@ export class AppModule implements OnApplicationShutdown {
     /* await Promise.all([
       this.closeRedisConnection(),
     ]).catch((error) => console.error(error.message));*/
+    // process.exit(0);
   }
 }
