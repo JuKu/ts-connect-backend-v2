@@ -21,7 +21,7 @@ export class VersionController {
 
   @Get("/")
   /**
-   * Get the current version in the format \{version: \<major.minor.path\>\}.
+   * Get the current version in the format {version: <major.minor.path>}.
    *
    * @return {Promise<Version>} backend version
    */

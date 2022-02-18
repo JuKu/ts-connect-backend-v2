@@ -10,7 +10,7 @@ export class AuthService {
   /**
    * Try to login the user.
    *
-   * @param {any} user
+   * @param {any} user user
    */
   async login(user: any) {
     /* const payload = { username: user.username, sub: user.userId };

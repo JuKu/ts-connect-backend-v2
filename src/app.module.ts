@@ -1,5 +1,5 @@
-// eslint-disable-next-line max-len
-import {CacheModule, CacheModuleOptions, Inject, Module, OnApplicationShutdown} from "@nestjs/common";
+import {CacheModule, CacheModuleOptions, Module,
+  OnApplicationShutdown} from "@nestjs/common";
 import {AppController} from "./app.controller";
 import {UserModule} from "./user/user.module";
 import {InfoModule} from "./info/info.module";
@@ -11,14 +11,12 @@ import {ChatModule} from "./chat/chat.module";
 import {MessagesModule} from "./messages/messages.module";
 import {AuthModule} from "./auth/auth.module";
 import configuration from "../config/configuration";
-// eslint-disable-next-line max-len
-import {ThrottlerGuard, ThrottlerModule, ThrottlerModuleOptions} from "@nestjs/throttler";
+import {ThrottlerGuard, ThrottlerModule,
+  ThrottlerModuleOptions} from "@nestjs/throttler";
 import {EventEmitterModule} from "@nestjs/event-emitter";
 import * as redisStore from "cache-manager-redis-store";
 import {APP_GUARD} from "@nestjs/core";
 import {ScheduleModule} from "@nestjs/schedule";
-import {MongooseModule, MongooseModuleOptions} from "@nestjs/mongoose";
-import {RedisClient} from "redis";
 import {DatabaseModule} from "./database/database.module";
 
 @Module({
@@ -66,13 +64,13 @@ import {DatabaseModule} from "./database/database.module";
         // use in-memory store
         console.info("use in-memory cache");
 
-        const options: CacheModuleOptions = {
+        const options1: CacheModuleOptions = {
           isGlobal: true,
         };
-        return options;
+        return options1;
       }
 
-      const options: CacheModuleOptions = {
+      const options1: CacheModuleOptions = {
         isGlobal: true,
         store: redisStore,
 
@@ -90,7 +88,7 @@ import {DatabaseModule} from "./database/database.module";
 
         ttl: configService.get("cache.ttl"),
       };
-      return options;
+      return options1;
     },
     inject: [ConfigService],
   }),
