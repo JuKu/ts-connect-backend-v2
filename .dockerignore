@@ -8,3 +8,4 @@ config/*
 !node_modules/mongodb-memory-server
 !node_modules/mongodb-memory-server-core
 !node_modules/mongodb-memory-server-global
+!node_modules/new-find-package-json
