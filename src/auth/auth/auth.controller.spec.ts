@@ -15,4 +15,12 @@ describe("AuthController", () => {
   it("should be defined", () => {
     expect(controller).toBeDefined();
   });
+
+  it("login() should be defined", async () => {
+    expect(controller.login()).toBeDefined();
+  });
+
+  it("passwordForgotten() should be defined", async () => {
+    expect(controller.passwordForgotten()).toBeDefined();
+  });
 });
