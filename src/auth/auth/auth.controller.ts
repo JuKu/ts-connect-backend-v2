@@ -24,6 +24,7 @@ export class AuthController {
    *
    * @return {Promise} json object
    */
+  // eslint-disable-next-line require-jsdoc
   public async login(): Promise<any> {
     return {};
   }
@@ -35,6 +36,7 @@ export class AuthController {
    *
    * @return {Promise} json object
    */
+  // eslint-disable-next-line require-jsdoc
   public async passwordForgotten(): Promise<any> {
     return {};
   }
