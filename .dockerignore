@@ -5,7 +5,13 @@ config/*
 !config/*.example.js
 !config/configuration.ts
 !config/configuration.example.yml
+
+# exceptions for mongodb-memory-server-core package
 !node_modules/mongodb-memory-server
 !node_modules/mongodb-memory-server-core
 !node_modules/mongodb-memory-server-global
 !node_modules/new-find-package-json
+!node_modules/@types/tmp
+!node_modules/async-mutex
+!node_modules/tmp
+!node_modules/get-port
