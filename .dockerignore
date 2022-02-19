@@ -5,3 +5,6 @@ config/*
 !config/*.example.js
 !config/configuration.ts
 !config/configuration.example.yml
+!node_modules/mongodb-memory-server
+!node_modules/mongodb-memory-server-core
+!node_modules/mongodb-memory-server-global
