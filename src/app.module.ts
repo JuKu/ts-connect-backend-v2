@@ -20,6 +20,7 @@ import {ScheduleModule} from "@nestjs/schedule";
 import {DatabaseModule} from "./database/database.module";
 import {WinstonModule} from "nest-winston";
 import {WinstonModuleOptions} from "nest-winston/dist/winston.interfaces";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import winston, {format, transports} from "winston";
 
 @Module({
@@ -98,6 +99,7 @@ import winston, {format, transports} from "winston";
   ScheduleModule.forRoot(),
   WinstonModule.forRootAsync({
     imports: [ConfigModule],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     useFactory: (configService: ConfigService) => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const winston = require("winston");

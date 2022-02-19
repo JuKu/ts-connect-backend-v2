@@ -13,7 +13,7 @@ import {RedisModule, RedisModuleOptions} from "@liaoliaots/nestjs-redis";
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
         const dbHost: string = configService.get("db.mongodb.host");
-        // eslint-disable-next-line max-len
+        // eslint-disable-next-line max-len,@typescript-eslint/no-unused-vars
         const dbPort: number = Number.parseInt(configService.get("db.mongodb.port"));
         const dbDatabase: string = configService.get("db.mongodb.database");
         const username: string = configService.get("db.mongodb.username");

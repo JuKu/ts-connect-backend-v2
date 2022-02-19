@@ -17,3 +17,4 @@ config/*
 !node_modules/get-port
 !node_modules/bl
 !node_modules/fs-constants
+!node_modules/yauzl
