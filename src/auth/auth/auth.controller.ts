@@ -26,6 +26,7 @@ export class AuthController {
    */
   // eslint-disable-next-line require-jsdoc
   public async login(): Promise<any> {
+    this.logger.log("someone tries to login");
     return {};
   }
 
