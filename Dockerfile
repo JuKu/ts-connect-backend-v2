@@ -43,6 +43,7 @@ RUN npm install --only=production
 # Fix for mongodb-memory-server, because MongoDbTestService uses this module
 RUN npm install --save mongodb-memory-server
 RUN npm install --save mongodb-memory-server-global
+RUN npm install mongodb-memory-server-core
 
 COPY . .
 
