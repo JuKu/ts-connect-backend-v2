@@ -59,6 +59,12 @@ $ npm run test:cov
 cloc src
 ```
 
+## Look into the Docker image
+
+```bash
+sudo docker run -it jukusoft/ts-connect-webapi:deploy-latest sh
+```
+
 ## License
 
 Nest is [Apache 2.0 licensed](LICENSE).
