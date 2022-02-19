@@ -16,6 +16,7 @@ import {NestExpressApplication} from "@nestjs/platform-express";
 import {join} from "path";
 import helmet from "helmet";
 import {ValidationPipe} from "@nestjs/common";
+import {WINSTON_MODULE_NEST_PROVIDER} from "nest-winston";
 
 // get the server host and port
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,6 +57,11 @@ async function bootstrap() {
       .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("swagger", app, document);
+
+  if (process.env.NODE_ENV === "production" ||
+    process.env.logger === "winston") {
+    app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+  }
 
   // Starts listening for shutdown hooks
   app.enableShutdownHooks();

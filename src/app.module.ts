@@ -1,5 +1,5 @@
-import {CacheModule, CacheModuleOptions, Module,
-  OnApplicationShutdown} from "@nestjs/common";
+import {CacheModule, CacheModuleOptions,
+  Module, OnApplicationShutdown} from "@nestjs/common";
 import {AppController} from "./app.controller";
 import {UserModule} from "./user/user.module";
 import {InfoModule} from "./info/info.module";
@@ -18,6 +18,9 @@ import * as redisStore from "cache-manager-redis-store";
 import {APP_GUARD} from "@nestjs/core";
 import {ScheduleModule} from "@nestjs/schedule";
 import {DatabaseModule} from "./database/database.module";
+import {WinstonModule} from "nest-winston";
+import {WinstonModuleOptions} from "nest-winston/dist/winston.interfaces";
+import winston, {format, transports} from "winston";
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -93,6 +96,46 @@ import {DatabaseModule} from "./database/database.module";
     inject: [ConfigService],
   }),
   ScheduleModule.forRoot(),
+  WinstonModule.forRootAsync({
+    imports: [ConfigModule],
+    useFactory: (configService: ConfigService) => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const winston = require("winston");
+      const winstonOptions: WinstonModuleOptions = {
+        level: "info",
+        levels: {
+          error: 0,
+          warn: 1,
+          info: 2,
+          http: 3,
+          verbose: 4,
+          debug: 5,
+          silly: 6,
+        },
+        format: format.combine(
+            winston.format.timestamp({
+              // format: "YYYY-MM-DD'T'HH:mm:ss.SSSZ",
+            }),
+            format.errors({stack: true}),
+            winston.format.json(),
+        ),
+        defaultMeta: {service: "web-api"},
+        transports: [
+          new transports.Console(),
+          new transports.File({
+            filename: "logs/error.log",
+            level: "warn",
+          }),
+          new transports.File({filename: "logs/all.log"}),
+          // new winston.transports.Console({ format: winston.format.simple() })
+        ],
+        exitOnError: false,
+      };
+
+      return winstonOptions;
+    },
+    inject: [ConfigService],
+  }),
   ],
   controllers: [AppController],
   providers: [
@@ -116,7 +159,8 @@ export class AppModule implements OnApplicationShutdown {
       // ...
       // @Inject() private readonly redisConnection: RedisClient,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-  ) {}
+  ) {
+  }
 
   /* async closeRedisConnection(): Promise<void> {
     this.redisConnection.quit();
