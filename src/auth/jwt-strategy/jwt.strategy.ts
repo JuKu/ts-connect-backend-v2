@@ -29,6 +29,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @return {Promise<any>} decoded json object
    */
   async validate(payload: any): Promise<any> {
+    // from the docs: It's also worth pointing out that
+    // this approach leaves us room ('hooks' as it were)
+    // to inject other business logic into the process.
+    // For example, we could do a database lookup in our validate()
+    // method to extract more information about the user,
+    // resulting in a more enriched user object being available in our Request
+
     return {userId: payload.sub, username: payload.username};
   }
 }
