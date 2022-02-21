@@ -55,10 +55,10 @@ describe("AppController (e2e)", () => {
         });
   });
 
-  it("/api/auth/login should get a JWT then successfully make a call",
+  it("/api/login should get a JWT then successfully make a call",
       async () => {
         const loginReq = await request(app.getHttpServer())
-            .post("/api/auth/login")
+            .post("/api/login")
             .send({username: "admin", password: "admin"})
             .expect(201);
 
