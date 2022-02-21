@@ -64,7 +64,7 @@ describe("AppController (e2e)", () => {
 
         const token = loginReq.body.access_token;
         return request(app.getHttpServer())
-            .get("/api/user/user-info")
+            .get("/api/auth/user-info")
             .set("Authorization", "Bearer " + token)
             .expect(200)
             .expect({userId: 1, username: "admin"});

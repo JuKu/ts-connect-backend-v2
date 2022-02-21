@@ -1,6 +1,7 @@
-import {Controller, Logger, Post, Request, UseGuards} from "@nestjs/common";
+import {Controller, Get, Logger, Post, Request, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "../local-auth.guard";
 import {AuthService} from "../auth.service";
+import {JwtAuthGuard} from "../jwt-auth.guard";
 
 @Controller("/api")
 /**
@@ -45,5 +46,11 @@ export class AuthController {
   // eslint-disable-next-line require-jsdoc
   public async passwordForgotten(): Promise<any> {
     return {};
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("auth/user-info")
+  getProfile(@Request() req) {
+    return req.user;
   }
 }
