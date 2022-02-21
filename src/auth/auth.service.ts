@@ -1,6 +1,7 @@
 import {Injectable, Logger} from "@nestjs/common";
 import {UserService} from "../user/user/user.service";
 import bcrypt from "bcryptjs";
+import {JwtService} from "@nestjs/jwt";
 
 @Injectable()
 /**
@@ -15,8 +16,11 @@ export class AuthService {
    * The constructor.
    *
    * @param {UserService} usersService the user service
+   * @param {JwtService} jwtService the json-web-token
+   * service provided by passport
    */
-  constructor(private usersService: UserService) {}
+  constructor(private usersService: UserService,
+              private jwtService: JwtService) {}
 
   /**
    * Try to login the user.
@@ -52,5 +56,18 @@ export class AuthService {
     // nest passport library expects, that the method returns null,
     // if the credentials was wrong.
     return null;
+  }
+
+  /**
+   * This method is called from passport.
+   *
+   * @param {any} user the user object which is returned from validate()
+   * @return {Promise<any>} result object, returned as result to user
+   */
+  async login(user: any): Promise<any> {
+    const payload = {username: user.username, sub: user.userId};
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }

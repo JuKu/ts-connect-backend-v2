@@ -17,7 +17,8 @@ describe("AuthController", () => {
   });
 
   it("login() should be defined", async () => {
-    expect(controller.login()).toBeDefined();
+    const req = jest.mock; // jest.createMockFromModule();
+    expect(controller.login(req)).toBeDefined();
   });
 
   it("passwordForgotten() should be defined", async () => {
