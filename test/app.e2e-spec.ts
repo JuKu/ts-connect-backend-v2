@@ -54,4 +54,19 @@ describe("AppController (e2e)", () => {
           "version": "0.0.1",
         });
   });
+
+  it("/api/auth/login should get a JWT then successfully make a call",
+      async () => {
+        const loginReq = await request(app.getHttpServer())
+            .post("/api/auth/login")
+            .send({username: "admin", password: "admin"})
+            .expect(201);
+
+        const token = loginReq.body.access_token;
+        return request(app.getHttpServer())
+            .get("/api/user/user-info")
+            .set("Authorization", "Bearer " + token)
+            .expect(200)
+            .expect({userId: 1, username: "admin"});
+      });
 });
