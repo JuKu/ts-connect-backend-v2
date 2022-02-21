@@ -1,4 +1,6 @@
 import {Injectable} from "@nestjs/common";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bcrypt = require("bcryptjs");
 
 // This should be a real class/interface representing a user entity
 export type User = any;
@@ -12,20 +14,28 @@ export type User = any;
  */
 export class UserService {
   // TODO: replace this with mongoose
-  private readonly users = [
-    {
-      userId: 1,
-      username: "john",
-      password: "changeme",
-      salt: "",
-    },
-    {
-      userId: 2,
-      username: "maria",
-      password: "guess",
-      salt: "",
-    },
-  ];
+  private users = [];
+
+  constructor() {
+    this.init();
+  }
+
+  async init() {
+    this.users = [
+      {
+        userId: 1,
+        username: "admin",
+        password: await bcrypt.hash("admin", 10),
+        salt: "",
+      },
+      {
+        userId: 2,
+        username: "maria",
+        password: "guess",
+        salt: "",
+      },
+    ];
+  }
 
   /**
    * get the user object by username.

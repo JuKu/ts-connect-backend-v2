@@ -34,6 +34,7 @@ import {LocalStrategy} from "./local-strategy/local.strategy";
     ConfigModule,
     UserModule,
   ],
+  controllers: [AuthController],
   providers: [AuthService, AuthController, LocalStrategy],
   exports: [],
 })

@@ -1,6 +1,7 @@
 import {Injectable, Logger} from "@nestjs/common";
 import {UserService} from "../user/user/user.service";
-import bcrypt from "bcryptjs";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bcrypt = require("bcryptjs");
 import {JwtService} from "@nestjs/jwt";
 
 @Injectable()
@@ -15,11 +16,11 @@ export class AuthService {
   /**
    * The constructor.
    *
-   * @param {UserService} usersService the user service
+   * @param {UserService} userService the user service
    * @param {JwtService} jwtService the json-web-token
    * service provided by passport
    */
-  constructor(private usersService: UserService,
+  constructor(private userService: UserService,
               private jwtService: JwtService) {}
 
   /**
@@ -30,15 +31,12 @@ export class AuthService {
    * @return {Promise<any>} the return promise
    */
   async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
+    const user = await this.userService.findOne(username);
 
     this.logger.log("try to login user: " + username);
 
-    // TODO: get salt from user
-    const salt = user.salt;
-
     // check password
-    if (user && await bcrypt.compare(password + salt, user.password)) {
+    if (user && await bcrypt.compare(password + user.salt, user.password)) {
       // password is correct
       this.logger.log("password correct for user '" + user.username + "'",
           {"type": "login", "username": username});

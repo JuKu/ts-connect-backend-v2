@@ -22,7 +22,7 @@ export class AuthController {
   }
 
   @UseGuards(LocalAuthGuard)
-  @Post("auth/login")
+  @Post("login")
   /**
    * try to login the user.
    *
