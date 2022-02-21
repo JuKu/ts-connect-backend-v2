@@ -34,8 +34,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     // to inject other business logic into the process.
     // For example, we could do a database lookup in our validate()
     // method to extract more information about the user,
-    // resulting in a more enriched user object being available in our Request
+    // resulting in a more enriched user object being available in our Request.
+    //  This is also the place we may decide to do further token validation,
+    //  such as looking up the userId in a list of revoked tokens,
+    //  enabling us to perform token revocation
 
+    // TODO: add support for token invalidation
     return {userId: payload.sub, username: payload.username};
   }
 }
