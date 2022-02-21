@@ -121,7 +121,7 @@ import winston, {format, transports} from "winston";
             format.errors({stack: true}),
             winston.format.json(),
         ),
-        defaultMeta: {service: "web-api"},
+        defaultMeta: {service: process.env.SERVICE_NAME || "web-api"},
         transports: [
           new transports.Console(),
           new transports.File({

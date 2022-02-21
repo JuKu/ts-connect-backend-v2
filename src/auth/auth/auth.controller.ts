@@ -1,4 +1,5 @@
-import {Controller, Logger, Post} from "@nestjs/common";
+import {Controller, Logger, Post, Request, UseGuards} from "@nestjs/common";
+import {LocalAuthGuard} from "../local-auth.guard";
 
 @Controller("/api")
 /**
@@ -18,16 +19,18 @@ export class AuthController {
     // add code here
   }
 
-  @Post("login")
+  @UseGuards(LocalAuthGuard)
+  @Post("auth/login")
   /**
    * try to login the user.
    *
-   * @return {Promise} json object
+   * @async
+   * @param {() => ParameterDecorator} the http request
+   * @return {any} the user object
    */
   // eslint-disable-next-line require-jsdoc
-  public async login(): Promise<any> {
-    this.logger.log("someone tries to login");
-    return {};
+  async login(@Request() req) {
+    return req.user;
   }
 
   @Post("password-forgotten")

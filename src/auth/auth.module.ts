@@ -4,6 +4,8 @@ import {PassportModule} from "@nestjs/passport";
 import {JwtModule, JwtModuleOptions} from "@nestjs/jwt";
 import {AuthService} from "./auth.service";
 import {ConfigModule, ConfigService} from "@nestjs/config";
+import {AuthController} from "./auth/auth.controller";
+import {LocalStrategy} from "./local-strategy/local.strategy";
 
 @Module({
   imports: [
@@ -30,9 +32,10 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
       inject: [ConfigService],
     }),
     ConfigModule,
+    UserModule,
   ],
-  providers: [AuthService/* , LocalStrategy*/],
-  exports: [AuthService],
+  providers: [AuthService, AuthController, LocalStrategy],
+  exports: [],
 })
 /**
  * This module is responsible for the authentication of the user.

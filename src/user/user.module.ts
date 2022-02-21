@@ -1,10 +1,10 @@
 import {Module} from "@nestjs/common";
-import {AuthController} from "../auth/auth/auth.controller";
-import {AuthService} from "../auth/auth.service";
+import {UserService} from "./user/user.service";
 
 @Module({
-  controllers: [AuthController],
-  providers: [AuthService],
+  controllers: [],
+  providers: [UserService],
+  exports: [UserService],
 })
 /**
  * this module is responsible for all endpoints which starts with /user/** .
