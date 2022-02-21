@@ -1,5 +1,6 @@
 import {Controller, Logger, Post, Request, UseGuards} from "@nestjs/common";
 import {LocalAuthGuard} from "../local-auth.guard";
+import {AuthService} from "../auth.service";
 
 @Controller("/api")
 /**
@@ -13,9 +14,10 @@ export class AuthController {
   /**
    * The constructor.
    *
+   * @param {AuthService} authService the authentication service instance
    * @return {void}
    */
-  constructor() {
+  constructor(private authService: AuthService) {
     // add code here
   }
 
@@ -30,7 +32,7 @@ export class AuthController {
    */
   // eslint-disable-next-line require-jsdoc
   async login(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 
   @Post("password-forgotten")
