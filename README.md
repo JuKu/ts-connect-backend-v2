@@ -67,4 +67,4 @@ sudo docker run -it jukusoft/ts-connect-webapi:deploy-latest sh
 
 ## License
 
-Nest is [Apache 2.0 licensed](LICENSE).
+This backend is [Apache 2.0 licensed](LICENSE).
