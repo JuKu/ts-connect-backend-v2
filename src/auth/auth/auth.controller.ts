@@ -2,6 +2,7 @@ import {Controller, Get, Logger, Post, Request, UseGuards} from "@nestjs/common"
 import {LocalAuthGuard} from "../local-auth.guard";
 import {AuthService} from "../auth.service";
 import {JwtAuthGuard} from "../jwt-auth.guard";
+import {Public} from "../public.decorator";
 
 @Controller("/api")
 /**
@@ -22,6 +23,7 @@ export class AuthController {
     // add code here
   }
 
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post("login")
   /**
@@ -36,6 +38,7 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
+  @Public()
   @Post("password-forgotten")
   /**
    * password forgotten function.

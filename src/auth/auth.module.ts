@@ -7,6 +7,8 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
 import {AuthController} from "./auth/auth.controller";
 import {LocalStrategy} from "./local-strategy/local.strategy";
 import {JwtStrategy} from "./jwt-strategy/jwt.strategy";
+import {APP_GUARD} from "@nestjs/core";
+import {JwtAuthGuard} from "./jwt-auth.guard";
 
 @Module({
   imports: [
@@ -36,7 +38,14 @@ import {JwtStrategy} from "./jwt-strategy/jwt.strategy";
     UserModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, AuthController, LocalStrategy, JwtStrategy],
+  providers: [AuthService, AuthController, LocalStrategy, JwtStrategy,
+    // This auth guard is registered public,
+    // this means all the endpoints are protected by default
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
   exports: [],
 })
 /**
