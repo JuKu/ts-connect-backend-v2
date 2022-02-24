@@ -25,12 +25,13 @@ export class AuthService {
 
   /**
    * Try to login the user.
+   * If the credentials are wrong null is returned
    *
    * @param {string} username the username of the user
    * @param {string} password the password of the user
-   * @return {Promise<any>} the return promise
+   * @return {Promise<any>} the return promise or null, if credentials are wrong
    */
-  async validateUser(username: string, password: string): Promise<any> {
+  public async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userService.findOne(username);
 
     this.logger.log("try to login user: " + username);
@@ -62,7 +63,7 @@ export class AuthService {
    * @param {any} user the user object which is returned from validate()
    * @return {Promise<any>} result object, returned as result to user
    */
-  async login(user: any): Promise<any> {
+  public async login(user: any): Promise<any> {
     const payload = {username: user.username, sub: user.userId};
     return {
       access_token: this.jwtService.sign(payload),
