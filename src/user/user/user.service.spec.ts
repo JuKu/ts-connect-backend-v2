@@ -2,17 +2,24 @@ import {Test, TestingModule} from "@nestjs/testing";
 import {Gender, UserService} from "./user.service";
 import {getModelToken, MongooseModule} from "@nestjs/mongoose";
 import {User, UserDocument, UserSchema} from "../user-schema";
-import {closeInMongodConnection, rootMongooseTestModule}
-  from "../../../test/test-utils/MongooseTestModule";
+import {MongoMemoryServer} from "mongodb-memory-server";
+import {MongoDbTestService}
+  from "../../database/mongo-dbtest/mongo-db-test.service";
+import {DatabaseModule} from "../../database/database.module";
 
 describe("UserService", () => {
   let service: UserService;
-  // let mockUserModel: Model<UserDocument>;
+  let mongod: MongoMemoryServer;
 
   beforeEach(async () => {
+    if (mongod !== undefined) {
+      console.error("mongod instance already exists");
+    }
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        // rootMongooseTestModule(),
+        DatabaseModule,
         MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
       ],
       providers: [UserService,
@@ -23,6 +30,8 @@ describe("UserService", () => {
     }).compile();
 
     service = module.get<UserService>(UserService);
+    mongod = await module.get<MongoDbTestService>(MongoDbTestService)
+        .getInstance();
   });
 
   it("should be defined", () => {
@@ -30,12 +39,6 @@ describe("UserService", () => {
   });
 
   it("should be able to create and delete users", async () => {
-    /* const user1 = new User();
-    const userID = "12345";
-    const spy = jest
-        .spyOn(mockUserModel, "findById") // <- spy on what you want
-        .mockResolvedValue(user1 as UserDocument); */
-
     const user: UserDocument = await service.createUser({
       username: "test",
       password: "test1",
@@ -80,7 +83,9 @@ describe("UserService", () => {
     expect(res).toBe(true);
   });
 
-  afterEach(async () => {
-    await closeInMongodConnection();
+  afterAll(async () => {
+    await mongod.stop();
+    mongod = undefined;
+    // await closeInMongodConnection();
   });
 });
