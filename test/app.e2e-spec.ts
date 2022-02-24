@@ -55,6 +55,24 @@ describe("AppController (e2e)", () => {
         });
   });
 
+  it("/api/auth/user-info should return a 401, if the user is not logged in",
+      async () => {
+        // the logged out user should get a http status code 401
+        return request(app.getHttpServer())
+            .get("/api/auth/user-info")
+            .expect(401);
+      });
+
+  it("/api/auth/user-info with wrong JWT token should return a 401 status code",
+      async () => {
+        const token = "test";
+
+        return request(app.getHttpServer())
+            .get("/api/auth/user-info")
+            .set("Authorization", "Bearer " + token)
+            .expect(401);
+      });
+
   it("/api/login should get a JWT then successfully make a call",
       async () => {
         const loginReq = await request(app.getHttpServer())
