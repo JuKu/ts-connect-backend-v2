@@ -9,9 +9,9 @@ executors:
     docker:
       - image: cimg/node:17.4.0
       - image: circleci/mongo:latest
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: myUser
-        MONGO_INITDB_ROOT_PASSWORD: myPass
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: myUser
+          MONGO_INITDB_ROOT_PASSWORD: myPass
     working_directory: ~/ts-connect-backend
 
 jobs:
