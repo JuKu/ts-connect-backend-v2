@@ -43,7 +43,11 @@ export class AuthService {
           {"type": "login", "username": username});
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const {password, salt, ...result} = user;
+      // const {password, salt, ...result} = user;
+      const result = {
+        userId: user._id,
+        username: user.username,
+      };
       return result;
     } else {
       // password is wrong
