@@ -52,4 +52,19 @@ describe("JwtStrategyService", () => {
   it("should be defined", () => {
     expect(service).toBeDefined();
   });
+
+  it("validate() should return a valide object", async () => {
+    const payload = {
+      sub: 1,
+      username: "admin",
+    };
+
+    const expectedValue = {
+      userId: 1,
+      username: "admin",
+    };
+
+    expect(await service.validate(payload)).toBeDefined();
+    expect(await service.validate(payload)).toEqual(expectedValue);
+  });
 });
