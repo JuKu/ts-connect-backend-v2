@@ -6,9 +6,9 @@ let mongod: MongoMemoryServer;
 
 // eslint-disable-next-line max-len
 export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => MongooseModule.forRootAsync({
-  imports: [ConfigService],
+  imports: [],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  useFactory: async (configService: ConfigService) => {
+  useFactory: async () => {
     console.info("start mongodb memory server...");
     mongod = await MongoMemoryServer.create();
     // await mongod.start(false);
@@ -24,7 +24,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => M
       ...options,
     };
   },
-  inject: [ConfigService],
+  inject: [],
 });
 
 export const closeInMongodConnection = async () => {
