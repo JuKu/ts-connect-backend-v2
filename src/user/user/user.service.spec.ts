@@ -59,6 +59,25 @@ describe("UserService", () => {
     expect(user.globalRoles).toContain("super-admin");
     expect(user.globalRoles).toContain("developer");
     expect(user.globalRoles).toContain("test-role");
+
+    const userId: string = user._id;
+
+    // check, if user exists
+    expect(await service.findOne("test1")).toBeNull();
+    expect(await service.findOne("test")).toBeDefined();
+    expect(await service.findOne("test")).not.toBeNull();
+
+    // delete user
+
+    // not existent user id
+    // eslint-disable-next-line max-len
+    expect(await service.deleteUserById("41224d776a326fb40f000001")).toBeFalsy();
+    // eslint-disable-next-line max-len
+    expect(await service.deleteUserById("41224d776a326fb40f000001")).toBe(false);
+
+    const res = await service.deleteUserById(user._id);
+    expect(res).toBeTruthy();
+    expect(res).toBe(true);
   });
 
   afterEach(async () => {

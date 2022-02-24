@@ -94,13 +94,13 @@ export class UserService implements OnModuleInit {
     return createdUser.save();
   }
 
-  public async deleteUserById(userId: number): Promise<boolean> {
+  public async deleteUserById(userId: string): Promise<boolean> {
     // first, check if user is deletable
     const user: UserDocument = await this.userModel.findById(userId).exec();
 
     if (user && user.deletable) {
       const deleteResult = await this.userModel.deleteOne({_id: userId}).exec();
-      return deleteResult.acknowledged;
+      return deleteResult.deletedCount > 0; // deleteResult.acknowledged;
     } else {
       this.logger.warn("Cannot delete user, user does " +
         "not exists or is not deletable: " + user);

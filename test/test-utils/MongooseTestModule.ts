@@ -9,6 +9,10 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => M
   imports: [],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   useFactory: async () => {
+    if (mongod !== undefined) {
+      console.error("A mongodb instance is already running");
+    }
+
     console.info("start mongodb memory server...");
     mongod = await MongoMemoryServer.create();
     // await mongod.start(false);
@@ -29,4 +33,5 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => M
 
 export const closeInMongodConnection = async () => {
   if (mongod) await mongod.stop();
+  mongod = undefined;
 };
