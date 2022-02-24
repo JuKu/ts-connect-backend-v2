@@ -7,11 +7,13 @@ import {DatabaseService} from "../src/database/database/database.service";
 import {MongoMemoryServer} from "mongodb-memory-server";
 import {MongoDbTestService}
   from "../src/database/mongo-dbtest/mongo-db-test.service";
+import {VersionService} from "../src/info/version-service/version.service";
 
 describe("AppController (e2e)", () => {
   let app: INestApplication;
   let dbConnection: Connection;
   let mongod: MongoMemoryServer;
+  let versionService: VersionService;
 
   // replace "Each" with "All"
   beforeAll(async () => {
@@ -31,6 +33,8 @@ describe("AppController (e2e)", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     dbConnection = moduleFixture
         .get<DatabaseService>(DatabaseService).getDbHandle();
+
+    versionService = moduleFixture.get<VersionService>(VersionService);
   });
 
   afterAll(async () => {
@@ -47,11 +51,14 @@ describe("AppController (e2e)", () => {
   });
 
   it("/api/version (GET)", () => {
+    const expectedTimestamp: string = versionService.getStartUpTimestamp();
+
     return request(app.getHttpServer())
         .get("/api/version")
         .expect(200)
         .expect({
           "version": "0.0.1",
+          "startUpTime": expectedTimestamp,
         });
   });
 
