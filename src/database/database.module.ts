@@ -24,7 +24,8 @@ import {RedisModule, RedisModuleOptions} from "@liaoliaots/nestjs-redis";
         // mongodb-srv cannot have a port number
         let mongoDBUri: string = "mongodb+srv://" + username + ":" + password + "@" + dbHost + "/" + dbDatabase + "?retryWrites=" + retryWrites + "&w=" + w + "";
 
-        if (configService.get<string>("NODE_ENV") === "test") {
+        if (configService.get<string>("NODE_ENV") === "test" &&
+          configService.get<string>("CI") !== "true") {
           const mongoDbTestService = new MongoDbTestService();
           mongoDBUri = await mongoDbTestService.createInMemoryInstance();
           console.info("use mongodb test instance: " + mongoDBUri);
