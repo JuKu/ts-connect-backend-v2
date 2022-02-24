@@ -1,6 +1,5 @@
 import {Injectable, OnModuleInit} from "@nestjs/common";
 import {getVersion} from "get-own-version";
-import moment from "moment";
 
 @Injectable()
 /**

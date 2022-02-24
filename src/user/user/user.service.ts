@@ -91,7 +91,7 @@ export class UserService implements OnModuleInit {
       globalPermissions: globalPermissions,
       deletable: deletable,
     });
-    return await createdUser.save();
+    return createdUser.save();
   }
 
   public async deleteUserById(userId: number): Promise<boolean> {
