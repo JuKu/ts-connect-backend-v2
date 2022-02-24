@@ -29,4 +29,9 @@ describe("VersionServiceService", () => {
     // check the major.minor.patch format
     expect(versionArr.length).toBe(3);
   });
+
+  it("getStartUpTimestamp() should return an non-empty string", async () => {
+    expect(service.getStartUpTimestamp()).toBeDefined();
+    expect(service.getStartUpTimestamp()).toBeTruthy();
+  });
 });

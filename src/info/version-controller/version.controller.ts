@@ -32,6 +32,7 @@ export class VersionController {
   public async getVersion(): Promise<any> {
     return {
       version: await this.versionService.getCurrentBackendVersion(),
+      startUpTime: this.versionService.getStartUpTimestamp(),
     };
   }
 }
