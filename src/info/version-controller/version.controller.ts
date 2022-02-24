@@ -1,5 +1,6 @@
 import {Controller, Get} from "@nestjs/common";
 import {VersionService} from "../version-service/version.service";
+import {Public} from "../../auth/public.decorator";
 
 @Controller("/api/version")
 /**
@@ -18,6 +19,7 @@ export class VersionController {
   constructor(private readonly versionService: VersionService) {
   }
 
+  @Public()
   @Get("/")
   /**
    * Get the current version in the format {version: <major.minor.path>}.
