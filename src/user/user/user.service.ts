@@ -6,6 +6,12 @@ import {randomUUID} from "crypto";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const bcrypt = require("bcryptjs");
 
+export enum Gender {
+  MALE = 0,
+  FEMALE = 1,
+  DIVERSE = 2
+}
+
 @Injectable()
 /**
  * This service is responsible for managing the users,
@@ -58,6 +64,34 @@ export class UserService implements OnModuleInit {
     return this.userModel.count().exec();
   }
 
+  public async createUser({username, password, email = "test@example.com",
+    preName = "Unknown", lastName = "Unknown",
+    country = "germany", gender = Gender.MALE,
+    globalRoles, globalPermissions = ["login"]}: {
+    username: string, password: string,
+      email: string, preName: string, lastName: string,
+      country: string, gender: Gender,
+      globalRoles: Array<string>, globalPermissions: Array<string>,
+  },
+  ): Promise<UserDocument> {
+    // generate random salt
+    const salt = await bcrypt.hash(randomUUID(), 10);
+
+    const createdUser = new this.userModel({
+      username: username,
+      password: await bcrypt.hash(password + salt, 10),
+      salt: salt,
+      email: email,
+      preName: preName,
+      lastName: lastName,
+      country: country,
+      gender: gender.valueOf(),
+      globalRoles: globalRoles,
+      globalPermissions: globalPermissions,
+    });
+    return await createdUser.save();
+  }
+
   /**
    * Create the admin user, if no other user exists.
    *
@@ -68,22 +102,14 @@ export class UserService implements OnModuleInit {
       this.logger.log("create new admin user 'admin' with password 'admin', " +
         "because no other user exists");
 
-      // generate random salt
-      const salt = await bcrypt.hash(randomUUID(), 10);
-
-      const createdUser = new this.userModel({
-        username: "admin",
-        password: await bcrypt.hash("admin" + salt, 10),
-        salt: salt,
-        email: "admin@example.com",
-        preName: "Admin",
-        lastName: "Admin",
-        country: "germany",
-        gender: 0,
-        globalRoles: ["super-admin", "developer"],
-        globalPermissions: ["super-admin"],
+      await this.createUser({
+        username: "admin", password: "admin", email: "admin@example.com",
+        preName: "Admin", lastName: "Admin", country: "germany",
+        gender: Gender.MALE, globalRoles: [
+          "super-admin",
+          "developer",
+        ], globalPermissions: ["super-admin"],
       });
-      await createdUser.save();
     } else {
       this.logger.log("don't create admin user, because users already exists");
     }
