@@ -3,6 +3,8 @@ import {AuthService} from "./auth.service";
 import {UserService} from "../user/user/user.service";
 import {JwtModule, JwtModuleOptions, JwtService} from "@nestjs/jwt";
 import {ConfigModule, ConfigService} from "@nestjs/config";
+import {getModelToken} from "@nestjs/mongoose";
+import {User} from "../user/user-schema";
 
 describe("AuthService", () => {
   let service: AuthService;
@@ -25,7 +27,11 @@ describe("AuthService", () => {
         }),
       ],
       providers: [AuthService,
-        UserService],
+        UserService,
+        {
+          provide: getModelToken(User.name),
+          useValue: {},
+        }],
     }).compile();
 
     service = module.get<AuthService>(AuthService);

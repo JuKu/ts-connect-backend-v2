@@ -5,6 +5,8 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
 import {UserService} from "../../user/user/user.service";
 import {AuthService} from "../auth.service";
 import configuration from "../../../config/configuration";
+import {getModelToken} from "@nestjs/mongoose";
+import {User} from "../../user/user-schema";
 
 describe("JwtStrategyService", () => {
   let service: JwtStrategy;
@@ -37,7 +39,11 @@ describe("JwtStrategyService", () => {
           inject: [],
         }),
       ],
-      providers: [UserService, AuthService, JwtStrategy, ConfigService],
+      providers: [UserService, AuthService, JwtStrategy, ConfigService,
+        {
+          provide: getModelToken(User.name),
+          useValue: {},
+        }],
     }).compile();
 
     service = module.get<JwtStrategy>(JwtStrategy);

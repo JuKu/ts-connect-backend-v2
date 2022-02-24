@@ -1,9 +1,9 @@
 import {Injectable} from "@nestjs/common";
+import {InjectModel} from "@nestjs/mongoose";
+import {User, UserDocument} from "../user-schema";
+import {Model} from "mongoose";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const bcrypt = require("bcryptjs");
-
-// This should be a real class/interface representing a user entity
-export type User = any;
 
 @Injectable()
 /**
@@ -16,7 +16,7 @@ export class UserService {
   // TODO: replace this with mongoose
   private users = [];
 
-  constructor() {
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
     this.init();
   }
 

@@ -5,6 +5,8 @@ import {UserService} from "../../user/user/user.service";
 import {JwtModule, JwtModuleOptions} from "@nestjs/jwt";
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {promisify} from "util";
+import {getModelToken} from "@nestjs/mongoose";
+import {User} from "../../user/user-schema";
 
 describe("AuthController", () => {
   let controller: AuthController;
@@ -29,7 +31,11 @@ describe("AuthController", () => {
         }),
       ],
       controllers: [AuthController],
-      providers: [UserService, AuthService],
+      providers: [UserService, AuthService,
+        {
+          provide: getModelToken(User.name),
+          useValue: {},
+        }],
     }).compile();
 
     userService = module.get<UserService>(UserService);

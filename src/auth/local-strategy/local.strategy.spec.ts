@@ -6,6 +6,8 @@ import {UserService} from "../../user/user/user.service";
 import {AuthService} from "../auth.service";
 import {UnauthorizedException} from "@nestjs/common";
 import * as util from "util";
+import {getModelToken} from "@nestjs/mongoose";
+import {User} from "../../user/user-schema";
 
 describe("LocalStrategyService", () => {
   let service: LocalStrategy;
@@ -28,7 +30,11 @@ describe("LocalStrategyService", () => {
           inject: [ConfigService],
         }),
       ],
-      providers: [UserService, AuthService, LocalStrategy],
+      providers: [UserService, AuthService, LocalStrategy,
+        {
+          provide: getModelToken(User.name),
+          useValue: {},
+        }],
     }).compile();
 
     authService = module.get<AuthService>(AuthService);
