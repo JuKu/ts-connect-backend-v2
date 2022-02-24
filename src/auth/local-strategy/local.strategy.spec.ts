@@ -5,7 +5,6 @@ import {ConfigModule, ConfigService} from "@nestjs/config";
 import {UserService} from "../../user/user/user.service";
 import {AuthService} from "../auth.service";
 import {UnauthorizedException} from "@nestjs/common";
-import * as util from "util";
 import {getModelToken} from "@nestjs/mongoose";
 import {User} from "../../user/user-schema";
 
@@ -49,7 +48,7 @@ describe("LocalStrategyService", () => {
     "if credentials are wrong", async () => {
     const result = null;
     jest.spyOn(authService, "validateUser").mockImplementation(
-        (username: string, password: string) => result);
+        () => result);
 
     await expect(async () => {
       await service.validate("test", "test");
@@ -61,6 +60,7 @@ describe("LocalStrategyService", () => {
 
   it("validate() should return an user object, if credentials are right",
       async () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const result: Promise<any> = new Promise<any>(((resolve, reject) => {
           resolve({
             "userid": 1,
@@ -69,7 +69,7 @@ describe("LocalStrategyService", () => {
         }));
 
         jest.spyOn(authService, "validateUser").mockImplementation(
-            (username: string, password: string) => result);
+            () => result);
 
         const res = await service.validate("admin", "admin");
         expect(res).toBeDefined();
