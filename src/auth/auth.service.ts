@@ -44,11 +44,10 @@ export class AuthService {
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       // const {password, salt, ...result} = user;
-      const result = {
+      return {
         userId: user._id,
         username: user.username,
       };
-      return result;
     } else {
       // password is wrong
       this.logger.log("login failed for user '" + user.username + "'," +
