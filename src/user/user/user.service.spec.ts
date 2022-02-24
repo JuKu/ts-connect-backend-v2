@@ -31,7 +31,7 @@ describe("UserService", () => {
           load: [configuration],
           isGlobal: true,
         }),
-        DatabaseModule,
+        // DatabaseModule,
         MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
       ],
       providers: [UserService,
