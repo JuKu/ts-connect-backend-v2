@@ -4,6 +4,11 @@ import {Document} from "mongoose";
 export type UserDocument = User & Document;
 
 @Schema()
+/**
+ * This is the user database schema for the user object.
+ *
+ * @author Justin Kuenzel
+ */
 export class User {
   @Prop({required: true, index: true})
     username: string;
