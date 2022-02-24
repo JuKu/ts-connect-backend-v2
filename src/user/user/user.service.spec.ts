@@ -6,9 +6,14 @@ import {MongoMemoryServer} from "mongodb-memory-server";
 import {MongoDbTestService}
   from "../../database/mongo-dbtest/mongo-db-test.service";
 import {DatabaseModule} from "../../database/database.module";
+import {Connection} from "mongoose";
+import {DatabaseService} from "../../database/database/database.service";
+import {ConfigModule} from "@nestjs/config";
+import configuration from "../../../config/configuration";
 
 describe("UserService", () => {
   let service: UserService;
+  let dbConnection: Connection;
   let mongod: MongoMemoryServer;
 
   beforeEach(async () => {
@@ -19,6 +24,13 @@ describe("UserService", () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         // rootMongooseTestModule(),
+        ConfigModule.forRoot({
+          // When you want to use ConfigModule in other modules,
+          // you'll need to import it.
+          // see also: https://docs.nestjs.com/techniques/configuration
+          load: [configuration],
+          isGlobal: true,
+        }),
         DatabaseModule,
         MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
       ],
@@ -32,6 +44,12 @@ describe("UserService", () => {
     service = module.get<UserService>(UserService);
     mongod = await module.get<MongoDbTestService>(MongoDbTestService)
         .getInstance();
+
+    dbConnection = module
+        .get<DatabaseService>(DatabaseService).getDbHandle();
+
+    // start transaction
+    await dbConnection.startSession();
   });
 
   it("should be defined", () => {
