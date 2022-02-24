@@ -1,7 +1,8 @@
 import {Test, TestingModule} from "@nestjs/testing";
 import {DatabaseService} from "./database.service";
-import {ConfigService} from "@nestjs/config";
+import {ConfigModule, ConfigService} from "@nestjs/config";
 import {DatabaseModule} from "../database.module";
+import configuration from "../../../config/configuration";
 
 // jest.setup.js
 jest.setTimeout(10000);
@@ -11,7 +12,13 @@ describe("DatabaseService", () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigService, DatabaseModule],
+      imports: [ConfigModule.forRoot({
+        // When you want to use ConfigModule in other modules,
+        // you'll need to import it.
+        // see also: https://docs.nestjs.com/techniques/configuration
+        load: [configuration],
+        isGlobal: true,
+      }), DatabaseModule],
       providers: [DatabaseService],
     }).compile();
 
