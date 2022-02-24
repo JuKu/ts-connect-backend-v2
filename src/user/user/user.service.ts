@@ -67,11 +67,12 @@ export class UserService implements OnModuleInit {
   public async createUser({username, password, email = "test@example.com",
     preName = "Unknown", lastName = "Unknown",
     country = "germany", gender = Gender.MALE,
-    globalRoles, globalPermissions = ["login"]}: {
+    globalRoles, globalPermissions = ["login"], deletable = true}: {
     username: string, password: string,
       email: string, preName: string, lastName: string,
       country: string, gender: Gender,
       globalRoles: Array<string>, globalPermissions: Array<string>,
+    deletable: boolean,
   },
   ): Promise<UserDocument> {
     // generate random salt
@@ -88,8 +89,23 @@ export class UserService implements OnModuleInit {
       gender: gender.valueOf(),
       globalRoles: globalRoles,
       globalPermissions: globalPermissions,
+      deletable: deletable,
     });
     return await createdUser.save();
+  }
+
+  public async deleteUserById(userId: number): Promise<boolean> {
+    // first, check if user is deletable
+    const user: UserDocument = await this.userModel.findById(userId).exec();
+
+    if (user && user.deletable) {
+      const deleteResult = await this.userModel.deleteOne({_id: userId}).exec();
+      return deleteResult.acknowledged;
+    } else {
+      this.logger.warn("Cannot delete user, user does " +
+        "not exists or is not deletable: " + user);
+      return false;
+    }
   }
 
   /**
@@ -109,6 +125,7 @@ export class UserService implements OnModuleInit {
           "super-admin",
           "developer",
         ], globalPermissions: ["super-admin"],
+        deletable: false,
       });
     } else {
       this.logger.log("don't create admin user, because users already exists");

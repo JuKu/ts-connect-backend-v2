@@ -42,7 +42,10 @@ export class User {
     globalRoles: string[];
 
   @Prop([String])
-    globalPermissions: string[]; s;
+    globalPermissions: string[];
+
+  @Prop()
+    deletable: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
