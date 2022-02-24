@@ -12,13 +12,6 @@ describe("DatabaseService", () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule.forRoot({
-        // When you want to use ConfigModule in other modules,
-        // you'll need to import it.
-        // see also: https://docs.nestjs.com/techniques/configuration
-        load: [configuration],
-        isGlobal: true,
-      }), DatabaseModule],
       providers: [DatabaseService],
     }).compile();
 
