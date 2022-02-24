@@ -16,10 +16,21 @@ export class UserService {
   // TODO: replace this with mongoose
   private users = [];
 
+  /**
+   * The constructor.
+   *
+   * @param {Model<UserDocument>} userModel the user model
+   */
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
     this.init();
   }
 
+  /**
+   * This method initialized a local array with some example users.
+   * This should be removed later.
+   *
+   * @async
+   */
   async init() {
     this.users = [
       {
