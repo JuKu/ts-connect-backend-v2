@@ -46,6 +46,12 @@ export class User {
 
   @Prop()
     deletable: boolean;
+
+  @Prop({required: false})
+    lastOnlineTime: Date;
+
+  @Prop({default: Date.now()})
+    createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
