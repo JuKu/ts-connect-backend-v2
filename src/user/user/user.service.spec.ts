@@ -2,8 +2,8 @@ import {Test, TestingModule} from "@nestjs/testing";
 import {Gender, UserService} from "./user.service";
 import {getModelToken, MongooseModule} from "@nestjs/mongoose";
 import {User, UserDocument, UserSchema} from "../user-schema";
-import {Model} from "mongoose";
-import {closeInMongodConnection, rootMongooseTestModule} from "../../../test/test-utils/MongooseTestModule";
+import {closeInMongodConnection, rootMongooseTestModule}
+  from "../../../test/test-utils/MongooseTestModule";
 
 describe("UserService", () => {
   let service: UserService;
