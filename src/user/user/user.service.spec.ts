@@ -8,7 +8,7 @@ import {MongoDbTestService}
 import {DatabaseModule} from "../../database/database.module";
 import {Connection} from "mongoose";
 import {DatabaseService} from "../../database/database/database.service";
-import {ConfigModule} from "@nestjs/config";
+import {ConfigModule, ConfigService} from "@nestjs/config";
 import configuration from "../../../config/configuration";
 
 describe("UserService", () => {
@@ -23,18 +23,13 @@ describe("UserService", () => {
 
     const module: TestingModule = await Test.createTestingModule({
       imports: [
+        ConfigService, DatabaseModule,
         // rootMongooseTestModule(),
-        ConfigModule.forRoot({
-          // When you want to use ConfigModule in other modules,
-          // you'll need to import it.
-          // see also: https://docs.nestjs.com/techniques/configuration
-          load: [configuration],
-          isGlobal: true,
-        }),
         // DatabaseModule,
         MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
       ],
       providers: [UserService,
+        // DatabaseService,
         /* {
           provide: getModelToken(User.name),
           useValue: Model,
