@@ -109,4 +109,16 @@ describe("UserService", () => {
     expect(res).toBeTruthy();
     expect(res).toBe(true);
   });
+
+  it("should create the admin user on startup, if no other user exists",
+      async () => {
+        expect(await service.countUsers()).toEqual(0);
+
+        // execute the initialization method
+        await service.onModuleInit();
+
+        // the admin user should be created
+        expect(await service.countUsers()).toEqual(1);
+        expect(await service.findOne("admin")).not.toBeNull();
+      });
 });
