@@ -8,11 +8,11 @@ executors:
   ci-node:
     docker:
       - image: cimg/node:17.4.0
-      - image: circleci/mongo:latest
+      #- image: circleci/mongo:latest
         # port: 27017:27017
-        environment:
-          MONGO_INITDB_ROOT_USERNAME: myUser
-          MONGO_INITDB_ROOT_PASSWORD: myPass
+      #  environment:
+      #    MONGO_INITDB_ROOT_USERNAME: myUser
+      #    MONGO_INITDB_ROOT_PASSWORD: myPass
     working_directory: ~/ts-connect-backend
 
 jobs:
