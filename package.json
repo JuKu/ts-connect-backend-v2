@@ -119,6 +119,7 @@
     "eslint-plugin-security-node": "^1.1.1",
     "jest": "^27.2.5",
     "jest-sonar-reporter": "^2.0.0",
+    "mockingoose": "^2.15.2",
     "mongo-unit": "^3.0.0",
     "mongodb-memory-server": "^8.3.0",
     "mongodb-memory-server-global": "^8.3.0",
