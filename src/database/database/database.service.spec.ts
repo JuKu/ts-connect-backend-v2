@@ -2,15 +2,17 @@ import {Test, TestingModule} from "@nestjs/testing";
 import {DatabaseService} from "./database.service";
 import {ConfigService} from "@nestjs/config";
 import {DatabaseModule} from "../database.module";
+import mongoose from "mongoose";
 
 // jest.setup.js
 jest.setTimeout(10000);
 
 describe("DatabaseService", () => {
   let service: DatabaseService;
+  let module: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       imports: [ConfigService, DatabaseModule],
       providers: [DatabaseService],
     }).compile();
@@ -18,8 +20,10 @@ describe("DatabaseService", () => {
     service = module.get<DatabaseService>(DatabaseService);
   });
 
-  afterAll(async () => {
-    // add code here
+  afterEach(async () => {
+    await module.close();
+    await mongoose.disconnect();
+    // await mongod.stop();
   });
 
   it("should be defined", () => {
