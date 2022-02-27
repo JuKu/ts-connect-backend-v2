@@ -95,6 +95,8 @@ describe("UserService", () => {
     expect(await service.findOne("test")).toBeDefined();
     expect(await service.findOne("test")).not.toBeNull();
 
+    expect(await service.countUsers()).toEqual(1);
+
     // delete user
 
     // not existent user id
