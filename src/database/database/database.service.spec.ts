@@ -35,6 +35,7 @@ describe("DatabaseService", () => {
     await module.close();
     await mongoose.disconnect();
     await mongod.stop();
+    mongod = undefined;
   });
 
   it("should be defined", () => {
