@@ -62,4 +62,16 @@ describe("AuthController", () => {
   it("passwordForgotten() should be defined", async () => {
     expect(controller.passwordForgotten()).toBeDefined();
   });
+
+  it("getProfile() should return a user information", async () => {
+    const req = {
+      user: {
+        userId: 1,
+        username: "test",
+      },
+    };
+    expect(controller.getProfile(req)).toBeDefined();
+    expect(controller.getProfile(req).userId).toEqual(1);
+    expect(controller.getProfile(req).username).toEqual("test");
+  });
 });
