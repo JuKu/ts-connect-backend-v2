@@ -120,5 +120,11 @@ describe("UserService", () => {
         // the admin user should be created
         expect(await service.countUsers()).toEqual(1);
         expect(await service.findOne("admin")).not.toBeNull();
+
+        // execute the initialization method again
+        await service.onModuleInit();
+
+        // no other user should be created
+        expect(await service.countUsers()).toEqual(1);
       });
 });
