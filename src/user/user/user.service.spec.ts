@@ -7,8 +7,6 @@ import {Connection} from "mongoose";
 import {ConfigService} from "@nestjs/config";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {MongoClient} = require("mongodb");
-// eslint-disable-next-line max-len
-// import {TestDatabaseHelper} from "../../../test/test-utils/test-database-helper";
 import mockingoose from "mockingoose";
 import * as mongoose from "mongoose";
 
