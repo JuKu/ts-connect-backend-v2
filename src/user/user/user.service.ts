@@ -64,6 +64,7 @@ export class UserService implements OnModuleInit {
     return this.userModel.count().exec();
   }
 
+  // @SONAR_STOP@
   public async createUser({username, password, email = "test@example.com",
     preName = "Unknown", lastName = "Unknown",
     country = "germany", gender = Gender.MALE,
@@ -93,6 +94,7 @@ export class UserService implements OnModuleInit {
     });
     return createdUser.save();
   }
+  // @SONAR_START@
 
   public async deleteUserById(userId: string): Promise<boolean> {
     // first, check if user is deletable
