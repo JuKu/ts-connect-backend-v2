@@ -152,4 +152,15 @@ describe("UserService", () => {
         // no other user should be created
         expect(await service.countUsers()).toEqual(1);
       });
+
+  it("createUser() with only non-optional parameters should work",
+      async () => {
+        const user: UserDocument = await service.createUser({
+          username: "test",
+          password: "test1",
+          globalRoles: ["super-admin", "developer", "test-role"],
+        });
+
+        expect(user).toBeDefined();
+      });
 });
