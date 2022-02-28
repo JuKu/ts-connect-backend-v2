@@ -70,10 +70,10 @@ export class UserService implements OnModuleInit {
     country = "germany", gender = Gender.MALE,
     globalRoles, globalPermissions = ["login"], deletable = true}: {
     username: string, password: string,
-      email: string, preName: string, lastName: string,
-      country: string, gender: Gender,
-      globalRoles: Array<string>, globalPermissions: Array<string>,
-    deletable: boolean,
+      email?: string, preName?: string, lastName?: string,
+      country?: string, gender?: Gender,
+      globalRoles: Array<string>, globalPermissions?: Array<string>,
+    deletable?: boolean,
   },
   ): Promise<UserDocument> {
     // generate random salt
