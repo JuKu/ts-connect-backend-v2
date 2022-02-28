@@ -90,6 +90,7 @@
     "@nestjs/cli": "^8.2.1",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.3.1",
+    "@shelf/jest-mongodb": "^2.2.0",
     "@types/bcrypt": "^5.0.0",
     "@types/bull": "^3.15.8",
     "@types/cache-manager": "^3.4.2",
@@ -155,7 +156,8 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage"
+    "coverageDirectory": "../coverage",
+    "preset": "@shelf/jest-mongodb"
   },
   "main": ".eslintrc.js",
   "directories": {

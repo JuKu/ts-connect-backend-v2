@@ -5,6 +5,8 @@ import {User, UserDocument, UserSchema} from "../user-schema";
 import {MongoMemoryServer} from "mongodb-memory-server";
 import {Connection} from "mongoose";
 import {ConfigService} from "@nestjs/config";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const {MongoClient} = require("mongodb");
 // eslint-disable-next-line max-len
 // import {TestDatabaseHelper} from "../../../test/test-utils/test-database-helper";
 import mockingoose from "mockingoose";
@@ -13,16 +15,39 @@ import * as mongoose from "mongoose";
 describe("UserService", () => {
   let service: UserService;
   let dbConnection: Connection;
-  let mongod: MongoMemoryServer;
+  // let mongod: MongoMemoryServer;
   let module: TestingModule;
 
-  beforeEach(async () => {
-    if (mongod !== undefined) {
-      console.error("mongod instance already exists");
-    }
+  let connection;
+  let db;
 
-    mongod = new MongoMemoryServer();
-    await mongod.ensureInstance();
+  beforeAll(async () => {
+    /* if (global.__MONGO_URI__ === undefined) {
+      console.error("MongoDB server is not started");
+      process.exit(1);
+    } */
+
+    console.info("MongoDB Url: " + global.__MONGO_URI__);
+
+    connection = await MongoClient.connect(global.__MONGO_URI__, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    db = await connection.db(global.__MONGO_DB_NAME__);
+  });
+
+  afterAll(async () => {
+    await connection.close();
+  });
+
+  beforeEach(async () => {
+    /* if (mongod !== undefined) {
+      console.error("mongod instance already exists");
+    } */
+
+    // jest.setTimeout(10000);
+    // mongod = new MongoMemoryServer({binary: {version: "4.2.6"}});
+    // await mongod.ensureInstance();
 
     module = await Test.createTestingModule({
       imports: [
@@ -30,7 +55,8 @@ describe("UserService", () => {
         ConfigService, MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
         MongooseModule.forRootAsync({
           useFactory: async () => ({
-            uri: mongod.getUri(),
+            // see also: https://jestjs.io/docs/mongodb
+            uri: /* mongod.getUri() */global.__MONGO_URI__,
           }),
         }),
       ],
@@ -56,8 +82,8 @@ describe("UserService", () => {
   afterEach(async () => {
     await module.close();
     await mongoose.disconnect();
-    await mongod.stop();
-    mongod = undefined;
+    // await mongod.stop();
+    // mongod = undefined;
   });
 
   it("should be defined", () => {

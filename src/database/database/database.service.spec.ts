@@ -7,22 +7,23 @@ import {MongoMemoryServer} from "mongodb-memory-server";
 import {MongooseModule} from "@nestjs/mongoose";
 
 // jest.setup.js
-jest.setTimeout(10000);
+jest.setTimeout(60000);
 
 describe("DatabaseService", () => {
   let service: DatabaseService;
-  let mongod: MongoMemoryServer;
+  // let mongod: MongoMemoryServer;
   let module: TestingModule;
 
   beforeEach(async () => {
-    mongod = new MongoMemoryServer();
-    await mongod.ensureInstance();
+    // jest.setTimeout(10000);
+    // mongod = new MongoMemoryServer({binary: {version: "4.2.6"}});
+    // await mongod.ensureInstance();
 
     module = await Test.createTestingModule({
       imports: [ConfigService, /* DatabaseModule*/
         MongooseModule.forRootAsync({
           useFactory: async () => ({
-            uri: mongod.getUri(),
+            uri: global.__MONGO_URI__, // mongod.getUri(),
           }),
         })],
       providers: [DatabaseService],
@@ -34,8 +35,8 @@ describe("DatabaseService", () => {
   afterEach(async () => {
     await module.close();
     await mongoose.disconnect();
-    await mongod.stop();
-    mongod = undefined;
+    // await mongod.stop();
+    // mongod = undefined;
   });
 
   it("should be defined", () => {
