@@ -43,7 +43,7 @@
     "@nestjs/swagger": "^5.2.0",
     "@nestjs/throttler": "^2.0.0",
     "@nestjs/typeorm": "^8.0.3",
-    "@snyk/protect": "latest",
+    "@snyk/protect": "1.856.0",
     "@types/bcryptjs": "^2.4.2",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
