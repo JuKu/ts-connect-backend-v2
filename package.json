@@ -54,7 +54,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "compression": "^1.7.4",
-    "firebase-admin": "^10.0.2",
+    "firebase-admin": "^10.3.0",
     "get-own-version": "^1.1.0",
     "gzip": "^0.1.0",
     "hbs": "^4.2.0",
