@@ -60,7 +60,7 @@
     "hbs": "^4.2.0",
     "helmet": "^5.0.2",
     "ioredis": "^4.28.5",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "json-api-nestjs": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
     "logrocket": "^2.2.0",
